@@ -14,9 +14,9 @@ const VideoDetails = () => {
   const { isDarkMode, toggleTheme } = useTheme();
 
   const [selectedVideoDetails, setSelectedVideoDetails] = useState();
-  const [showFullDescription,setShowFullDescription] = useState(false);
+  const [showFullDescription, setShowFullDescription] = useState(false);
   const [channelData, setChannelData] = useState();
-  const [commentData, setCommentData] = useState()
+  const [commentData, setCommentData] = useState();
 
   const fetchSelectedVideoDetails = async () => {
     setLoading(true);
@@ -49,38 +49,35 @@ const VideoDetails = () => {
   };
 
   const fetchVideoComments = async () => {
-      setLoading(true);
-      try {
-        const data = await fetchApiForYoutubeData(`commentThreads`, {
-          part: "snippet",
-          videoId: videoId,
-          maxResults:10,
-        });
-        setCommentData(data?.items);
-      } catch (error) {
-        console.log("error fetching cahnnel data", error);
-      } finally {
-        setLoading(false);
-      }
+    setLoading(true);
+    try {
+      const data = await fetchApiForYoutubeData(`commentThreads`, {
+        part: "snippet",
+        videoId: videoId,
+        maxResults: 20,
+      });
+      setCommentData(data?.items);
+    } catch (error) {
+      console.log("error fetching cahnnel data", error);
+    } finally {
+      setLoading(false);
+    }
   };
-
-
-
 
   useEffect(() => {
     fetchSelectedVideoDetails();
-    fetchVideoComments()
+    fetchVideoComments();
   }, [videoId]);
 
   useEffect(() => {
     fetchChannelData();
   }, [selectedVideoDetails]);
 
-  const toggleDescription= () =>{
-    setShowFullDescription(!showFullDescription)
-  }
-  const description= selectedVideoDetails?.snippet?.description;
-  const truncatedDescription= description?.slice(0,240);
+  const toggleDescription = () => {
+    setShowFullDescription(!showFullDescription);
+  };
+  const description = selectedVideoDetails?.snippet?.description;
+  const truncatedDescription = description?.slice(0, 240);
 
   return (
     <div
@@ -130,7 +127,11 @@ const VideoDetails = () => {
                       subscribers
                     </p>
                   </div>
-                  <button className={`${isDarkMode ? "bg-white text-black" : "bg-black text-white"} font-semibold px-6 py-2 lg:py-3 mt-2 lg:mt-0 ml-1 lg:ml-6 rounded-full`}>
+                  <button
+                    className={`${
+                      isDarkMode ? "bg-white text-black" : "bg-black text-white"
+                    } font-semibold px-6 py-2 lg:py-3 mt-2 lg:mt-0 ml-1 lg:ml-6 rounded-full`}
+                  >
                     Subscribe
                   </button>
                 </div>
@@ -140,12 +141,14 @@ const VideoDetails = () => {
                       isDarkMode ? "bg-black" : "bg-slate-200"
                     }`}
                   >
-                    <FaThumbsUp/>
+                    <FaThumbsUp />
                     <span>
-                     {formatViewCount(selectedVideoDetails?.statistics?.likeCount)}
+                      {formatViewCount(
+                        selectedVideoDetails?.statistics?.likeCount
+                      )}
                     </span>
                     <div className="h-5 w-[1px] bg-gray-400 mx-2"></div>
-                    <FaThumbsDown/>
+                    <FaThumbsDown />
                   </button>
 
                   <button
@@ -153,53 +156,52 @@ const VideoDetails = () => {
                       isDarkMode ? "bg-black" : "bg-slate-200"
                     }`}
                   >
-                    <FaDownload/>
+                    <FaDownload />
                     <span>Download</span>
                   </button>
-
                 </div>
               </div>
               <div className="bg-slate-200 rounded-xl p-4">
-                  <p className="text-gray-900">
-               {formatViewCount(selectedVideoDetails?.statistics?.viewCount)}{" "} views .{" "}
-               {formatPublishTime(selectedVideoDetails?.snippet?.publishedAt)}
-                  </p>
-         <p className="text-black">
-
-           {showFullDescription ? description : truncatedDescription}
-           {description?.length>240 && (
-            <button
-             onClick={toggleDescription}
-             className="text-blue-500 ml-2"
-            >
-             {showFullDescription ? "Show less": "show more"}
-            </button>
-           )}
-         </p>
+                <p className="text-gray-900">
+                  {formatViewCount(selectedVideoDetails?.statistics?.viewCount)}{" "}
+                  views .{" "}
+                  {formatPublishTime(
+                    selectedVideoDetails?.snippet?.publishedAt
+                  )}
+                </p>
+                <p className="text-black">
+                  {showFullDescription ? description : truncatedDescription}
+                  {description?.length > 240 && (
+                    <button
+                      onClick={toggleDescription}
+                      className="text-blue-500 ml-2"
+                    >
+                      {showFullDescription ? "Show less" : "show more"}
+                    </button>
+                  )}
+                </p>
               </div>
             </div>
           )}
           <div className="mt-8">
-            <p className={`${isDarkMode ? "text-gray-200" : "text-black"} font-semibold text-lg `}>
-               {formatViewCount(selectedVideoDetails?.statistics?.commentCount)}{" "}
+            <p
+              className={`${
+                isDarkMode ? "text-gray-200" : "text-black"
+              } font-semibold text-lg `}
+            >
+              {formatViewCount(selectedVideoDetails?.statistics?.commentCount)}{" "}
               Comments
-              </p>
+            </p>
           </div>
-          {commentData?.map((comment) =>(
-            <VideoComments
-                comment={comment}
-                key={comment.id}
-            />
+          {commentData?.map((comment) => (
+            <VideoComments comment={comment} key={comment.id} />
           ))}
         </div>
-      <div className="lg:w-[35%] p-4">
-        <h3 className="text-xl font-bold mb-4">Related Videos</h3>
-        <RelatedVideos
-         categoryId={categoryId}
-        />
-
+        <div className="lg:w-[35%] p-4">
+          <h3 className="text-xl font-bold mb-4">Related Videos</h3>
+          <RelatedVideos categoryId={categoryId} />
+        </div>
       </div>
-    </div>
     </div>
   );
 };

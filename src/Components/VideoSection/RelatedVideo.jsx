@@ -18,7 +18,7 @@ const RelatedVideos = ({categoryId}) => {
             regionCode:"IN",
             chart: "mostPopular",
             videoCategoryId: categoryId,
-            maxResults:10
+            maxResults:20
            })
            setRelatedVideos(data?.items)
            console.log(data)

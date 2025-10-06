@@ -20,7 +20,7 @@ const SearchVideoResult = () => {
         regionCode:"IN",
         q:searchQuery,
         type: "video",
-        maxResults:10
+        maxResults:20
        })
         const videoIds= data.items.map((item) => item.id.videoId).join(",")
         const videoDetailsResponse = await fetchApiForYoutubeData("videos",{
