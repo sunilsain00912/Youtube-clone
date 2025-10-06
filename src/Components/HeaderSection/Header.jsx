@@ -62,7 +62,7 @@ const Header = () => {
         </div>
 
         {/* Logo */}
-        <Link to="/" className="flex items-center h-40">
+        <Link to="/" className="flex items-center h-20">
           <img
             src="/yt_dekstop.png"
             alt="youtube_desktop_logo"
@@ -73,7 +73,7 @@ const Header = () => {
           <img
             src="/youtube_mobile.png"
             alt="youtube_mobile_logo"
-            className={`block md:hidden h-14 object-contain ${
+            className={`block md:hidden h-20 object-contain ${
               isDarkMode ? "invert" : ""
             }`}
           />
