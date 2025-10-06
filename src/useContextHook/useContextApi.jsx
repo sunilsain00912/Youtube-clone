@@ -28,14 +28,14 @@ export const AppContext = ({ children }) => {
         part: "snippet, contentDetails, statistics",
         chart: "mostPopular",
         regionCode: "IN",
-        maxResults: 10,
+        maxResults: 20,
       });
     } else {
       fetchYoutubeData({
         part: "snippet, contentDetails, statistics",
         chart: "mostPopular",
         regionCode: "IN",
-        maxResults: 10,
+        maxResults: 20,
         videoCategoryId: selectedCategory,
       });
     }
