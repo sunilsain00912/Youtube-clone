@@ -14,6 +14,7 @@ const SearchVideoResult = () => {
   const { searchQuery } = useParams();
   const navigate = useNavigate();
 
+  // Fetch videos
   const fetchSearchVideos = async () => {
     setLoading(true);
     setLoadingData(true);
@@ -46,8 +47,21 @@ const SearchVideoResult = () => {
     fetchSearchVideos();
   }, [searchQuery]);
 
+  // Navigate to channel
   const handleChannelClick = (channelId) => {
     navigate(`/channel/${channelId}`);
+  };
+
+  // Navigate to video + scroll to player
+  const handleVideoClick = (categoryId, videoId) => {
+    navigate(`/video/${categoryId}/${videoId}`);
+    // Delay scroll until after route changes
+    setTimeout(() => {
+      const videoSection = document.getElementById("video-player-section");
+      if (videoSection) {
+        videoSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 600);
   };
 
   return (
@@ -110,9 +124,14 @@ const SearchVideoResult = () => {
                 }`}
               >
                 {/* Thumbnail */}
-                <Link
-                  to={`/video/${result?.snippet?.categoryId || "unknown"}/${result.id}`}
-                  className="w-full md:w-1/3 flex-shrink-0 relative group"
+                <div
+                  onClick={() =>
+                    handleVideoClick(
+                      result?.snippet?.categoryId || "unknown",
+                      result.id
+                    )
+                  }
+                  className="w-full md:w-1/3 flex-shrink-0 relative group cursor-pointer"
                 >
                   <img
                     src={result?.snippet?.thumbnails?.medium?.url}
@@ -128,7 +147,7 @@ const SearchVideoResult = () => {
                       .replace("M", ":")
                       .replace("S", "")}
                   </div>
-                </Link>
+                </div>
 
                 {/* Info */}
                 <div className="flex-1 flex flex-col justify-center">
@@ -142,7 +161,9 @@ const SearchVideoResult = () => {
 
                   {/* Channel name */}
                   <button
-                    onClick={() => handleChannelClick(result?.snippet?.channelId)}
+                    onClick={() =>
+                      handleChannelClick(result?.snippet?.channelId)
+                    }
                     className={`text-sm mt-1 font-medium text-start ${
                       isDarkMode
                         ? "text-blue-400 hover:underline"

@@ -79,6 +79,21 @@ const VideoDetails = () => {
     fetchVideoComments();
   }, [videoId]);
 
+  // 🔹 Auto-scroll to the video player when the page loads
+  useEffect(() => {
+    const scrollToPlayer = () => {
+      const videoSection = document.getElementById("video-player-section");
+      if (videoSection) {
+        videoSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    };
+
+    // Small delay to ensure DOM is ready
+    const timeout = setTimeout(scrollToPlayer, 600);
+
+    return () => clearTimeout(timeout);
+  }, [videoId]);
+
   useEffect(() => {
     fetchChannelData();
   }, [selectedVideoDetails]);
@@ -116,13 +131,15 @@ const VideoDetails = () => {
             <FaArrowLeft /> Back
           </button>
 
-          {/* Video Player */}
-          <div className="h-[300px] md:h-[450px] lg:h-[500px] xl:h-[600px] rounded-lg overflow-hidden">
+          {/* ✅ Added ID wrapper around video player */}
+          <div
+            id="video-player-section"
+            className="h-[300px] md:h-[450px] lg:h-[500px] xl:h-[600px] rounded-lg overflow-hidden"
+          >
             <iframe
               width="100%"
               height="100%"
               src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&showinfo=0&controls=1&fs=1`}
-
               title="YouTube video player"
               frameBorder="0"
               className="rounded-lg"
