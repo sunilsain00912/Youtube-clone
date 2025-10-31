@@ -1,16 +1,65 @@
-# React + Vite
+# 🎬 YouTube Clone (MERN Stack)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[🚀 Live Demo → https://youtube-clone-snowy-kappa.vercel.app](https://youtube-clone-snowy-kappa.vercel.app)
 
-Currently, two official plugins are available:
+> A full-fledged YouTube Clone built using the **MERN stack** and **YouTube Data API v3**.  
+> Search for videos, play them, view related content, and explore channels — all in real time.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🧩 Features
 
-The React Compiler is not enabled on this template. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 🔍 **Search Videos**: Search any video using YouTube API  
+- ▶️ **Play Video**: Embedded video player inside the app  
+- 💡 **Related Videos**: View recommended videos on the right sidebar  
+- 📺 **Channel Info**: View channel name, thumbnail, and video count  
+- 📱 **Responsive Design**: Works beautifully on mobile and desktop  
+- 🌙 **Dark / Light Mode Toggle** (optional, depending on implementation)  
+- 💾 **Saved Videos** *(optional)*: Save a list of favorite or liked videos (using MongoDB)  
+- 🔐 **Secure Backend**: Node.js + Express server proxies requests to YouTube API to keep your API key safe
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🧰 Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Frontend | React (Vite or Create React App) |
+| Styling | Tailwind CSS / CSS Modules |
+| Routing | React Router |
+| State Management | React Context / Hooks |
+| Backend | Node.js + Express |
+| Database | MongoDB (Optional: for user data or saved videos) |
+| API | YouTube Data API v3 |
+| Deployment | Vercel / Heroku / Render |
+
+---
+
+## 📂 Project Structure
+youtube-clone/
+├── backend/
+│ ├── server.js
+│ ├── routes/
+│ └── controllers/
+├── frontend/
+│ ├── src/
+│ │ ├── components/
+│ │ ├── pages/
+│ │ └── context/
+│ ├── public/
+│ └── App.jsx
+├── .env
+├── package.json
+└── README.md
+
+---
+## ⚙️ Setup Instructions (Local)
+
+1. **Clone the repo**
+   ```bash
+   git clone https://github.com/sunilsain00912/Youtube-clone.git
+   cd Youtube-clone
+
+📄 License
+This project is open-source under the MIT License — feel free to use and improve!
+
